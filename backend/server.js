@@ -14,10 +14,13 @@ app.use(express.json())
 app.use(passport.initialize())
 // importing passport file into server define middleware above routes
 require('./config/passport')(passport)
+const users = require('./routes/api/users')
 // home rout for sever
 app.get('/', (req, res) =>{
     res.status(200).json({message: 'Smile, you are being watch by the Backend Team'})
 })
+
+app.use('/api/users', users)
 
 app.listen(port, () =>{
     console.log(`Server is running on port: ${port}`)

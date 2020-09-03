@@ -5,8 +5,10 @@ require('dotenv').config()
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const mongoose = require('mongoose')
+const db = require('../models')
+// console.log(passport)
 // const { deserializeUser } = require('passport')
-const User = mongoose.model('User')
+// const User = mongoose.model('User')
 
 // options is an object literal containing options to control
 // to control how the token is extract from the request or verified 
@@ -20,7 +22,7 @@ options.secretOrKey = process.env.JWT_SECRET
 
 
 module.exports = (passport) =>{
-    passport.use(new JwtStrategy(options, (Jwt_payload, done) =>{
+    passport.use(new JwtStrategy(options, (jwt_payload, done) =>{
         // User is the model were referencing and find by the id 
         User.findById(jwt_payload.id)
         // jwt_payload is an object literal containing the decoded JWT payload 
